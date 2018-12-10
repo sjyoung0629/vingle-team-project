@@ -1,0 +1,191 @@
+a {
+    cursor: pointer;
+    text-decoration: none;
+}
+
+/* 댓글 보여주는 comment list 영역 */
+.commentListWrap {
+    margin:0 auto;
+    width: 60%;
+    height: 100%;
+    position: relative;
+    padding-top: 80px;
+}
+
+.commentListFunc {
+    width: 100%;
+    height: 30px;
+    display: flex;
+    flex-direction: row;
+    clear: both;
+    position: relative;
+}
+
+/* 댓글 개수 카운트 영역 */
+.commentCount {
+    width: 40%;
+    left: 0;
+    position: absolute;
+}
+
+/* 댓글 정렬 버튼 영역 */
+.commentSort {
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    right: 0;
+    color: #aeb8bd;
+    align-items: center;
+}
+
+.sortSelected {
+    font-weight: bold;
+    color: #1f262a;
+}
+
+.sort {
+    cursor: pointer;
+}
+
+.sortSep {
+    width: 1px;
+    height: 14px;
+    margin: 0 10px;
+    background-color: #aeb8bd;
+}
+
+.commentList {
+    left: 0;
+    width: 100%;
+    position: relative;
+}
+
+/* 한 개의 댓글 영역 */
+.comment {
+    left: 0;
+    width: 100%;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.reply {
+    left: 50px;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.author {
+    font-weight: bold;
+    padding-bottom: 5px;
+}
+
+.contentArea {
+    padding-bottom: 5px;
+}
+
+.commentFooterArea {
+    margin-top: 5px;
+    margin-bottom: 14px;
+    height: 18px;
+    line-height: 18px;
+}
+
+.timeReplyArea {
+    vertical-align: top;
+    float: left;
+}
+
+.time {
+    display: inline-block;
+    vertical-align: top;
+    font-size: 12px;
+    line-height: 1.33;
+    margin-right: 4px;
+    color: #aeb8bd;
+}
+
+.replyArea {
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 4px;
+    font-size: 12px;
+    line-height: 1.33;
+    color: #59646a;
+}
+
+.updateArea {
+    vertical-align: top;
+    float: right;
+}
+
+.likeArea {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    cursor: pointer;
+}
+
+/* 댓글 입력 영역 */
+.commentFormArea {
+    display: block;
+    margin:0 auto;
+    width: 100%;
+}
+
+.replyFormArea {
+    display: inline-block;
+    margin: 0 auto;
+    width: 100%;
+    height: 100%;
+    margin-left: 50px;
+}
+
+.inputAuthor {
+    float: left;
+    margin-top: 4px;
+    width: 25%;
+}
+
+.inputId {
+    width: 90%;
+}
+
+.inputForm {
+    margin-left: 58px;
+}
+
+.inputContent {
+    display: block;
+    width: 75%;
+    height: 50px;
+    right: 0;
+    font-size: 14px;
+    line-height: 20px;
+    color: #1f262a;
+    border: solid 1px #dce2e6;
+    border-radius: 4px;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-all;
+    word-break: break-word;
+    hyphens: auto;
+    min-height: 50px;
+    padding: 14px 17px;
+    resize: none;
+    outline: none;
+}
+
+.submitArea {
+    margin: 14px 0;
+}
+
+.submitBtn {
+    float: right;
+    right: 0;
+    padding: 0 14px;
+    height: 30px;
+    border-radius: 4px;
+    text-align: center;
+    cursor: pointer;
+}
+

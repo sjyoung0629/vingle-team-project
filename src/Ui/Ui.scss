@@ -1,0 +1,228 @@
+$url:'./img/';
+$gray:#a0a0a0;
+$light-gray:#e0e0e0;
+$black:#343434;
+$blue:#227b9e;
+$red:#c75454;
+$green:#65922c;
+$shadow:0 2px 8px rgba(0,0,0,0.3);
+
+.btn {
+    padding:8px 20px;
+    border-radius:3px;
+    border:1px solid $gray;
+    background-color:#fff;
+    &.red {
+        color:#fff;
+        border-color:$red;
+        background-color:$red;
+    }
+    &.blue {
+        color:#fff;
+        border-color:$blue;
+        background-color:$blue;
+    }
+}
+
+.radio,.checkbox {
+    input[type="radio"],input[type="checkbox"] {
+        position:absolute;
+        left:-9999px;
+        width:1px;
+        height:1px;
+        margin:-1px;
+        overflow:hidden;
+        opacity:0;
+        &+label {
+            display:inline-block;
+            position:relative;
+            cursor:pointer;
+            &:before {
+                margin-left:1px;
+                margin-right:0.3em;
+                font-family:'fontawesome';
+                font-size:1.5em;
+                color:$light-gray;
+                line-height:1;
+            }
+        }
+        &:checked+label {
+            &:before {
+                color:$red;
+            }
+        }
+    }
+    input[type="radio"] {
+        &+label:before {
+            content:"\f058";
+        }
+    }
+    input[type="checkbox"] {
+        &+label:before {
+            content:"\f14a";
+        }
+    }
+}
+
+.textarea {
+    width:100%;
+    height:6.5em;
+    padding:10px;
+    border:1px solid $light-gray;
+    border-radius:6px;
+    resize:vertical;
+}
+
+.dropdownGroup {
+    display:inline-block;
+    position:relative;
+}
+.dropdown {
+    position:absolute;
+    top:100%;
+    left:50%;
+    padding:10px;
+    border-radius:6px;
+    background-color:#fff;
+    box-shadow:$shadow;
+    z-index:9;
+    .item {
+        position:relative;
+    }
+    button {
+        width:100%;
+        padding:5px;
+        text-align:left;
+        &:hover {
+            background-color:#f5f6f7;
+        }
+    }
+}
+
+#toast {
+    display:flex;
+    justify-content:center;
+    position:fixed;
+    top:100px;
+    left:0;
+    width:100%;
+    pointer-events:none;
+    z-index:9;
+    .msg {
+        flex:1;
+        max-width:400px;
+        margin:0 15px;
+        padding:15px 0;
+        font-size:1.3em;
+        text-align:center;
+        color:#fff;
+        border-radius:6px;
+        background-color:$blue;
+        box-shadow:0 5px 20px rgba(0,0,0,0.2);
+    }
+}
+
+#popup,#confirm {
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background-color:rgba(0,0,0,0.4);
+    z-index:99;
+    .box {
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        height:100%;
+        padding:0 15px;
+    }
+    .frame {
+        position:relative;
+        width:100%;
+        max-width:400px;
+        padding:30px;
+        border-radius:6px;
+        background-color:#fff;
+        .btnClose {
+            position:absolute;
+            top:0;
+            right:0;
+            width:40px;
+            height:40px;
+            font-size:20px;
+        }
+        .title {
+            margin:0;
+        }
+        .entry {
+            max-height:600px;
+            overflow:auto;
+            margin:20px 0;
+            padding:5px 0;
+        }
+        .btns {
+            text-align:right;
+            .btn {
+                margin-left:5px;
+            }
+        }
+    }
+    .popupList {
+        p {
+            margin-bottom:10px;
+        }
+        .item {
+            margin-bottom:10px;
+            &:last-of-type {
+                margin-bottom:0;
+            }
+        }
+        .popupList {
+            margin-top:10px;
+            margin-left:10px;
+            padding-left:15px;
+            max-height:200px;
+            overflow:auto;
+            border-left:1px solid $light-gray;
+        }
+    }
+}
+#dimm {
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    z-index:1;
+}
+
+@media screen and (max-width:767px) {
+    .btn {
+        padding:5px 15px;
+    }
+    .dropdown {
+        left:auto;
+        right:0;
+        margin-right:-15px;
+    }
+    #toast {
+        .msg {
+            padding:10px 0;
+            font-size:1em;
+        }
+    }
+    #popup {
+        .frame {
+            padding:20px 15px;
+            .btnClose {
+                width:30px;
+                height:30px;
+                font-size:16px;
+            }
+            .entry {
+                margin:15px 0;
+            }
+        }
+    }
+}
