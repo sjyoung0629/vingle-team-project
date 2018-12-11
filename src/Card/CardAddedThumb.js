@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
-import {BrowserRouter as Link} from 'react-router-dom';
 
 class CardUser extends Component {
+  // 상세페이지로 이동
+  goCommentView = () => {
+    const cardID = this.props.id;
+    this.props.history.push('/commentView/' + cardID);
+  }
 
   render() {
     return (
       <>
-        <Link to="/commentView/1">
           {/* 카드 :: 첨부 - 이미지/동영상 : 썸네일형태 */}
-          <div className="added thumb thumbratio_w thumbtype_5">
+          <div className="added thumb thumbratio_w thumbtype_5" onClick={this.goCommentView}>
               <div className="box clear">
                 <div className="wrap">
                   <div className="inner"><img src="https://cdn.2kgames.com/civilization.com/RF-Cree/RF-Cree-leader.jpg" alt="" /></div>
@@ -22,7 +25,6 @@ class CardUser extends Component {
                 </div>
               </div>
             </div>
-          </Link>
       </>
     );
   }

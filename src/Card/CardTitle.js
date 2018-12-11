@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Detail from '../Detail/Detail';
-import {BrowserRouter as Link} from 'react-router-dom';
 
 class CardUser extends Component {
   state = {
@@ -14,13 +13,16 @@ class CardUser extends Component {
     this.setState({detail: false});
   }
 
+  goCommentView = () => {
+    const cardID = this.props.id;
+    this.props.history.push('/commentView/' + cardID);
+  }
+
   render() {
     return (
       <>
         {/* 카드 :: 제목 */}
-        <Link to="/commentView/1">
-          <div className="title" onClick={this.openDetail}>카드 제목</div>
-        </Link>
+        <div className="title" onClick={this.goCommentView}>카드 제목</div>
         {this.state.detail && 
             <Detail close={this.closeDetail} />
         }

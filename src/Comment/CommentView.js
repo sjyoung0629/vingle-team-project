@@ -6,6 +6,7 @@ import './Comment.css';
 class CommentView extends Component {
     // 댓글마다 고유한 id값
     comment_id = 3;
+    reply_id = 2;
 
     state = {
         sortBy: "likes",
@@ -93,7 +94,7 @@ class CommentView extends Component {
                             time: info.time,
                             reply: info.reply.concat({
                                 // 답글이 추가될 때 id 설정
-                                id: info.id + "-" + info.reply.length,
+                                id: info.id + "-" + this.reply_id++,
                                 ...data
                             })
                         }
@@ -118,7 +119,6 @@ class CommentView extends Component {
             this.setState({
                 information: information.map(
                     info => {
-                        console.log(info.id.toString() + "===" + commentId);
                         if (info.id.toString() === commentId) {
                             let reply = info.reply;
                             return {
@@ -129,7 +129,6 @@ class CommentView extends Component {
                                 time: info.time,
                                 reply: reply.map(
                                     rep => {
-                                        console.log(rep.id + "===" + id);
                                         if (rep.id === id) {
                                             return {
                                                 id: rep.id,
@@ -185,7 +184,6 @@ class CommentView extends Component {
             this.setState({
                 information: information.map(
                     info => {
-                        // console.log(info.id.toString() + "===" + commentId);
                         if (info.id.toString() === commentId) {
                             let reply = info.reply;
                             return {
@@ -196,7 +194,6 @@ class CommentView extends Component {
                                 time: info.time,
                                 reply: reply.map(
                                     rep => {
-                                        // console.log(rep.id + "===" + id);
                                         if (rep.id === id) {
                                             return {
                                                 id: rep.id,
@@ -256,7 +253,6 @@ class CommentView extends Component {
             this.setState({
                 information: information.map(
                     info => {
-                        console.log(info.id.toString() + "===" + commentId);
                         if (info.id.toString() === commentId) {
                             let reply = info.reply;
                             return {

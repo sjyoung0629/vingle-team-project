@@ -17,6 +17,7 @@ import '../Ui/Ui.scss';
 
 class Card extends Component {
   state = {
+    id: 1,
     toast: false,
     popup: false,
     confirm: false,
@@ -47,6 +48,8 @@ class Card extends Component {
   
 
   render() {
+    const cardID = this.state.id;
+    const history = this.props.history;
 
     return (
       <>
@@ -62,12 +65,12 @@ class Card extends Component {
         {/* 카드 */}
         <div className="card">
           <CardUser />
-          <CardTitle/>
-          <CardContents/>
+          <CardTitle id={cardID} history={history}/>
+          <CardContents id={cardID} history={history}/>
 
           {/* 카드 :: 첨부 - 최상위 첨부파일 포맷에 따라 썸네일, 임베드, 페이지링크 형태로 보여지는 화면이 나뉜다 */}
-          <CardAddedThumb />
-          <CardAddedEmbed />
+          <CardAddedThumb id={cardID} history={history}/>
+          <CardAddedEmbed id={cardID} history={history}/>
           <CardAddedPage />
 
           <CardTag />
