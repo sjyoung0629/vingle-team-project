@@ -4,7 +4,7 @@ class CardUser extends Component {
   // 상세페이지로 이동
   goCommentView = () => {
     const cardID = this.props.id;
-    this.props.history.push('/commentView/' + cardID);
+    this.props.history.push('/posts/' + cardID);
   }
 
   render() {

@@ -3,13 +3,62 @@ a {
     text-decoration: none;
 }
 
+.rootContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    margin-top: 70px;
+}
+
+.postWrap {
+    padding: 0px;
+    height: 100%;
+    flex: 1;
+}
+
+.postFrame {
+    position: relative;
+    width: 780px;
+    margin: auto;
+    padding: 0 90px 100px 90px;
+    background-color: #fff;
+    border-radius: 8px;
+    border: 1px solid #dce2e6;
+    will-change: scroll-position;
+}
+
+.userInfoWrap {
+    margin-top: 36px;
+    margin-bottom: 30px;
+}
+
+.postContentWrap {
+    position: relative;
+    width: 100%;
+    display: inline-block;
+    font-size: 15px;
+    line-height: 1.87;
+    color: #1f262a;
+    margin-bottom: 30px;
+}
+
+.countInfoArea {
+    height: 26px;
+    margin-bottom: 30px;
+}
+
+.shareArea {
+    float: right;
+}
+
 /* 댓글 보여주는 comment list 영역 */
 .commentListWrap {
     margin:0 auto;
-    width: 60%;
+    width: 100%;
     height: 100%;
     position: relative;
-    padding-top: 80px;
 }
 
 .commentListFunc {
@@ -19,6 +68,7 @@ a {
     flex-direction: row;
     clear: both;
     position: relative;
+    margin-bottom: 22px;
 }
 
 /* 댓글 개수 카운트 영역 */

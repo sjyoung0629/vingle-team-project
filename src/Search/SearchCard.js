@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 export default class SearchCard extends Component {
     goCommentView = () => {
         const cardID = this.props.id;
-        this.props.history.push('/commentView/' + cardID);
+        this.props.history.push('/posts/' + cardID);
     }
 
     render() {

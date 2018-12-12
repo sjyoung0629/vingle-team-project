@@ -12,29 +12,30 @@ class Like extends Component {
      */
     likeCmt = () => {
         const {onUpdate} = this.props;
-        let {likes} = this.props;
-        let isLike = this.state.like;
+        let {like, likeCount} = this.state;
 
-        if (isLike) {
-            likes++;
+        if (like) {
+            likeCount++;
 
         } else {
-            likes--;
+            likeCount--;
         }
         
-        onUpdate(likes);
+        onUpdate(likeCount);
 
         this.setState({
-            like: !isLike,
-            likeCount: likes,
+            like: !like,
+            likeCount: likeCount,
         });
     }
 
     render() {
+        const {likeCount} = this.state;
+
         return (
             <div className="likeArea">
                 <input type="button" value="좋아요" onClick={this.likeCmt}></input>
-                <span>{this.state.likeCount}</span>
+                <span>{likeCount}</span>
             </div>
         );
     }

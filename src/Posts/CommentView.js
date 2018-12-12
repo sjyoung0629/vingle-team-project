@@ -44,7 +44,7 @@ class CommentView extends Component {
             author: 'herry0917',
             content: '???',
             likes: 1,
-            time: 1544081416151,
+            time: 1544535429596,
             reply: [],
         }]
     }
@@ -247,10 +247,6 @@ class CommentView extends Component {
             const commentId = idArr[0];
 
             this.setState({
-                information: information.filter(info => info.id !== id)
-            });
-
-            this.setState({
                 information: information.map(
                     info => {
                         if (info.id.toString() === commentId) {
@@ -288,7 +284,7 @@ class CommentView extends Component {
 
         return (
             <div className="commentListWrap">
-            {this.props.match.params.id}
+            {/* {this.props.match.params.id} */}
                 <div className="commentListFunc">
                     <div className="commentCount">
                         <span>{arr_len}</span><span>개의 댓글</span>
