@@ -1,33 +1,62 @@
 import React, { Component } from 'react';
+import PopUpMenu from './PopUpMenu';
 
 class Share extends Component {
     state = {
         shareCount: this.props.shareCount,
+        menuOpen: false,
+        shareMenu: [{
+            id: 0,
+            title: '기본 컬렉션에 저장하기',
+            selected: false,
+        },
+        {
+            id: 1,
+            title: '카드에 작성하기',
+            selected: false,
+        },
+        {
+            id: 2,
+            title: '외부에 공유하기',
+            selected: false,
+        }]
     }
 
     /**
-     * 공유하기는 클릭할수록 증가
+     * 공유하기 수는 클릭할 때마다 증가
      */
-    sharePost = () => {
+    updateShareCount = (count) => {
         const {onUpdate} = this.props;
-        let {shareCount} = this.state;
         
-        shareCount++;
-
-        onUpdate(shareCount);
+        onUpdate(count);
 
         this.setState({
-            shareCount: shareCount,
+            shareCount: count,
         });
     }
 
+    // 외부 클릭시 menu close (아직 구현안함)
+    handleClickOutside(){
+        this.setState({
+            menuOpen: false,
+        });
+    }
+
+    toggleList = () => {
+        this.setState(prevState => ({
+            menuOpen: !prevState.menuOpen,
+        }));
+    }
+
     render() {
-        const {shareCount} = this.state;
+        const {shareCount, menuOpen, shareMenu} = this.state;
 
         return (
             <div className="shareArea">
-                <input type="button" value="공유" onClick={this.sharePost}></input>
+                <input type="button" value="공유" onClick={this.toggleList}></input>
                 <span>{shareCount}</span>
+                <PopUpMenu menuList={shareMenu} menuOpen={menuOpen} count={shareCount}
+                                onUpdate={this.updateShareCount}/>
             </div>
         );
     }

@@ -4,12 +4,12 @@ a {
 }
 
 .rootContainer {
-    position: fixed;
     top: 0;
     left: 0;
     right: 0;
     z-index: 10;
     margin-top: 70px;
+    overflow-y: auto;
 }
 
 .postWrap {
@@ -51,6 +51,22 @@ a {
 
 .shareArea {
     float: right;
+}
+
+.popUpMenu {
+    position: relative;
+    padding: 10px;
+    border-radius: 6px;
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    z-index: 9;
+}
+
+.menuItem {
+    height: 30px;
+    font-size: 12px;
+    color: #1f262a;
+    cursor: pointer;
 }
 
 /* 댓글 보여주는 comment list 영역 */
