@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 class PopUpMenu extends Component {
+    // click count 증가
     updateClickCount = () => {
         const {onUpdate} = this.props;
         let {count} = this.props;
@@ -10,24 +11,23 @@ class PopUpMenu extends Component {
         onUpdate(count);
     }
 
+    // props 값이 변경될 때만 re-rendering
+    shouldComponentUpdate(nextProps) {
+        return this.props !== nextProps;
+    }
+
     render() {
-        const {menuOpen, menuList} = this.props;
+        const {menuList} = this.props;
 
-        if (menuOpen) {
-            // menuOpen 값이 true 일때만 PopUpMenu 보여줌
-            return (
-                <div className="popUpMenu">
-                    <div className="menuList">
-                        {menuList.map((item) => (
-                            <li className="menuItem" key={item.id} onClick={this.updateClickCount}>{item.title}</li>
-                        ))}
-                    </div>
+        return (
+            <div className="popUpMenu">
+                <div className="menuList">
+                    {menuList.map((item) => (
+                        <li className="menuItem" key={item.id} onClick={this.updateClickCount}>{item.title}</li>
+                    ))}
                 </div>
-            );
-
-        } else {
-            return null;
-        }
+            </div>
+        );
     }
 }
 

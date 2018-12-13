@@ -22,9 +22,7 @@ class Share extends Component {
         }]
     }
 
-    /**
-     * 공유하기 수는 클릭할 때마다 증가
-     */
+    // 클릭할 때마다 공유하기 count 증가
     updateShareCount = (count) => {
         const {onUpdate} = this.props;
         
@@ -42,6 +40,7 @@ class Share extends Component {
         });
     }
 
+    // menu open/close toggle
     toggleList = () => {
         this.setState(prevState => ({
             menuOpen: !prevState.menuOpen,
@@ -55,8 +54,10 @@ class Share extends Component {
             <div className="shareArea">
                 <input type="button" value="공유" onClick={this.toggleList}></input>
                 <span>{shareCount}</span>
-                <PopUpMenu menuList={shareMenu} menuOpen={menuOpen} count={shareCount}
-                                onUpdate={this.updateShareCount}/>
+                {
+                    menuOpen && <PopUpMenu menuList={shareMenu} count={shareCount}
+                                            onUpdate={this.updateShareCount}/>
+                }
             </div>
         );
     }
