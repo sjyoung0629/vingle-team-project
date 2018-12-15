@@ -1,26 +1,48 @@
 import React, { Component } from 'react';
 
-class CardUser extends Component {
-
+class CardAddedPage extends Component {
   render() {
+    const {
+      added,
+    } = this.props;
+    return (
+      <>
+        <Page type={added.type}
+              more={added.more}
+              insight={added.insight}
+              sight={added.sight}
+              view = {this.props.view}
+        />
+        {console.log(this.props.added)}
+      </>
+    );
+  }
+}
+class Page extends Component {
+  render() {
+    const { sight } = this.props;
+    const first = sight[0];
+    
     return (
       <>
         {/* 카드 :: 첨부 - 페이지 링크형태 */}
         <div className="added share page">
-          <a href="#" target="_blank">
+          <a href={first.href} target="_blank">
             <div className="inner">
               <div className="source">
-                <p className="title">제목</p>
-                <p className="desc">설명</p>
+                <p className="title">{first.title}</p>
+                <p className="desc">{first.desc}</p>
               </div>
-              <div className="url">www.link.com <i className="fas fa-angle-right"></i></div>
+              <div className="url">{first.url} <i className="fas fa-angle-right"></i></div>
             </div>
           </a>
-          <button type="button" className="more">+ 1개의 링크 더 보기</button>
+          {this.props.more &&
+          <button type="button" className="more" onClick={this.props.view}>+ {this.props.more}개의 링크 더 보기</button>
+          }
         </div>
       </>
     );
   }
 }
 
-export default CardUser;
+export default CardAddedPage;

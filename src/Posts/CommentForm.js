@@ -2,10 +2,7 @@ import React, { Component } from 'react';
 
 class CommentForm extends Component {
     state = {
-        author: '',
         content: '',
-        likes: 0,
-        time: '',
     }
 
     handleSubmit = (e) => {
@@ -15,16 +12,13 @@ class CommentForm extends Component {
         // const type = this.props.type;
         // author, content 값이 있을때만 댓글 입력하도록 함
         // 향후 button disabled/abled 로 관리
-        if (state.author && state.content) {
+        if (state.content) {
             // 댓글 작성한 시간 불러와서 state에 저장
-            this.state.time = new Date().getTime();
-            this.props.onCreate(this.state);
+            // this.state.time = new Date().getTime();
+            this.props.onCreate(state.content);
             // submit 후 초기화
             this.setState({
-                author: '',
                 content: '',
-                likes: 0,
-                time: '',
             });
         }
     }
@@ -48,12 +42,12 @@ class CommentForm extends Component {
         return (
             <form className={(type === "comment") ? "commentFormArea" : "replyFormArea"}
                     onKeyUp={this.handleKeyUp}>
-                <div className="inputAuthor">
+                {/* <div className="inputAuthor">
                     <input name="author" className="inputId"
                         value={this.state.author}
                         placeholder="아이디"
                         onChange={this.handleChange}></input>
-                </div>
+                </div> */}
                 <div className="inputForm">
                     <textarea className="inputContent" name="content"
                     value={this.state.content}

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 class Like extends Component {
     state = {
@@ -27,6 +28,18 @@ class Like extends Component {
             like: !like,
             likeCount: likeCount,
         });
+    }
+
+    handleLikeCount = () => {
+        axios.put('/good/:feed_id', {})
+        .then( response => {
+            console.log(response.success);
+            if (response.success === 1) {
+                // 성공
+
+            }
+        } )
+        .catch( response => { console.log(response) } );
     }
 
     render() {

@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
 
 class PostContent extends Component {
-    state = {
-        content: this.props.content,
-    }
-
     render() {
+        const {title, content} = this.props;
+
         return (
             <div className="postContentWrap">
-                <span>{this.state.content}</span>
+                <div>
+                    <span>{title}</span>
+                </div>
+                <div>
+                    <span>{content}</span>
+                </div>
             </div>
         );
     }

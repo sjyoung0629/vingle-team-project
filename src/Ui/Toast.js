@@ -9,6 +9,7 @@ class Toast extends Component {
   }
 
   render() {
+    
     return (
       <div id="toast"><p className="msg">{this.props.msg}</p></div>
     );

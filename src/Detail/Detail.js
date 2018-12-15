@@ -1,22 +1,15 @@
 import React, { Component } from 'react';
-import '../Detail/Detail.scss';
+import './Detail.scss';
 
 
 class Detail extends Component {
   state = {
     detail: false,
   }
-  static defaultProps = {
-    close: () => {},
-  }
 
   render() {
-    const {
-      close
-    } = this.props
-    
     return (
-      <div id="detail" onClick={() => close()}>상세내용</div>
+      <div id="detail" onClick={this.props.close}>상세내용</div>
     );
   }
 }

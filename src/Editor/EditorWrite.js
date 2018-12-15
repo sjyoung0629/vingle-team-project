@@ -1,18 +1,42 @@
 import React, { Component } from 'react'
+import axios from 'axios';
 
 export default class EditoerWrite extends Component {
     state = {
         title: '',
         contents: '',
     }
+
     handleChange = (e) => {
         this.setState({
             [e.target.name]: e.target.value
         });
     }
-    handleSubmit = (e) => {
+
+    goPostView = (id) => {
+        this.props.history.push('/posts/' + id);
+      }
+
+    // post 작성
+    handleSubmit = () => {
         console.log(this.state);
+        axios.post('http://dev-jolse.iptime.org:9000/feed', {
+            title: this.state.title,
+            content: this.state.contents,
+        })
+        .then( response => {
+            const responseData = response.data;
+            const successValue = responseData.success;
+            if (successValue === 1) {
+                // 작성 성공!
+                console.log("## response id == " + responseData.insertId);
+                const id = responseData.insertId;
+                this.goPostView(id);
+            }
+        } )
+        .catch( response => { console.log(response) } );
     }
+
     render() {
         return (
         <div className="editorWrite">

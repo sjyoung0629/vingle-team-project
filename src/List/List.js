@@ -1,23 +1,19 @@
 import React, { Component } from 'react';
-import CardUser from './CardUser';
-import CardContents from './CardContents';
-import CardAdded from './CardAdded';
-import CardTag from './CardTag';
-import CardUtil from './CardUtil';
+import Card from '../Card/Card';
 import Toast from '../Ui/Toast';
 import Popup from '../Ui/Popup/';
 import Confirm from '../Ui/Confirm';
-
-
 import Detail from '../Detail/Detail';
 import Write from '../Write/Write';
 
-import './Card.scss';
+import '../Card/Card.scss';
 import '../Ui/Ui.scss';
+import axios from 'axios';
 
+class List extends Component {
 
-class Card extends Component {
   state = {
+    feed: [],
     toast: false,
     popup: false,
     confirm: false,
@@ -71,11 +67,8 @@ class Card extends Component {
 
   // (임시)상세페이지
   openDetail = () =>{
-    // this.setState({detail: true});
-    const cardID = this.props.id;
-    this.props.history.push('/posts/' + cardID);
+    this.setState({detail: true});
   }
-  
   closeDetail = () =>{
     this.setState({detail: false});
   }
@@ -88,47 +81,40 @@ class Card extends Component {
     this.setState({write: false});
   }
 
+  componentDidMount() {
+    axios.get('http://dev-jolse.iptime.org:9000/feed').then((response) => {
+      this.setState({
+        feed: response.data.results
+      })
+    });
+  }
+
 
   render() {
 
-    const {card} = this.props;
+    const { feed } = this.state;
+    const { history } = this.props;
 
     return (
       <>
-
+        
         {/* 카드 */}
-        <div className="card">
-          <CardUser
-            confirm={this.openConfirm}
-            popup={this.openPopup}
-            completeMsg={this.toastMsg}
-            write={this.openWrite}
-            time={card.build_date}
-          />
-          
-          <CardContents
-            view={this.openDetail}
-            title={card.title}
-            contents={card.content}
-          />
 
-          <CardAdded
-            view={this.openDetail}
-          />
-
-          <CardTag />
-
-          <CardUtil
-            confirm={this.openConfirm}
-            popup={this.openPopup}
-            completeMsg={this.toastMsg}
-            view={this.openDetail}
-            write={this.openWrite}
-            id={card.feed_id}
-            liked={card.good}
-          />
-        </div>
-
+        {feed.map((f, i) => {
+          return (
+            <Card confirm={this.openConfirm}
+              popup={this.openPopup}
+              completeMsg={this.toastMsg}
+              write={this.openWrite}
+              view={this.openDetail}
+              history={history}
+              id={i}
+              card={feed[i]}
+              key={i}
+            />
+          );
+        })}
+        
       
         {this.state.toast && 
           <Toast 
@@ -174,4 +160,4 @@ class Card extends Component {
   }
 }
 
-export default Card;
+export default List;

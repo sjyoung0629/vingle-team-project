@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import CommentForm from './CommentForm';
 import CommentList from './CommentList';
+import axios from 'axios';
 import './Comment.css';
 
 class CommentView extends Component {
@@ -8,8 +9,14 @@ class CommentView extends Component {
     comment_id = 3;
     reply_id = 2;
 
+    static defaultProps = {
+        comments: []
+    }
+
     state = {
         sortBy: "likes",
+        feed_id: this.props.id,
+        comments: [],
         information: [{
             id: 0,
             author: 'sjyoung',
@@ -65,6 +72,28 @@ class CommentView extends Component {
         }
     }
 
+    // 변경된 부분만 업데이트
+    shouldComponentUpdate(nextProps, nextState) {
+        if(this.state !== nextState){
+            return true;
+        }
+
+        return this.props.data !== nextProps.data;
+    }
+
+    componentWillMount () {
+        console.log("componentWillMount");
+        this.getComments();
+    }
+
+    // 댓글 가져와서 보여주기
+    getComments = () => {
+        const {comments} = this.props;
+        this.setState({
+            comments: comments,
+        });
+    }
+
     // 댓글 입력
     handleCreate = (data) => {
         const {information} = this.state;
@@ -76,6 +105,25 @@ class CommentView extends Component {
             reply: [],
           })
         });
+    }
+
+    // 댓글 입력
+    handleSubmitComment = (data) => {
+        const feed_id = this.state.feed_id;
+        axios.post('http://dev-jolse.iptime.org:9000/comment/' + feed_id, {
+            comment: data,
+        })
+        .then( response => {
+            const responseData = response.data;
+            const successValue = responseData.success;
+            if (successValue === 1) {
+                // 작성 성공!
+                let comment_id = responseData.insertId;
+                console.log("### comment 입력 성공! id = " + comment_id);
+
+            }
+        } )
+        .catch( response => { console.log(response) } );
     }
 
     // 답글 입력
@@ -274,11 +322,14 @@ class CommentView extends Component {
     }
     
     render() {
-        let {sortBy, information} = this.state;
-        const arr_len = information.length;
+        let {comments} = this.props;
+
+        console.log(comments);
+        let {sortBy} = this.state;
+        const arr_len = comments.length;
 
         // 기준(추천순/최신순)에 따라 정렬 수행
-        information = information.sort(function(a, b) {
+        comments = comments.sort(function(a, b) {
             return b[sortBy] - a[sortBy];
         });
 
@@ -302,13 +353,13 @@ class CommentView extends Component {
                     </div>
                 </div>
                 <div>
-                    <CommentList data={information}
+                    <CommentList data={comments}
                     onUpdate={this.handleUpdate}
                     onRemove={this.handleRemove}
                     updateLikes={this.updateLikes}
                     onCreateReply={this.handleCreateReply}/>
                     <hr />
-                    <CommentForm type="comment" onCreate={this.handleCreate}/>
+                    <CommentForm type="comment" onCreate={this.handleSubmitComment}/>
                 </div>
             </div>
         );

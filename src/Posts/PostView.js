@@ -3,24 +3,62 @@ import PostContent from './PostContent';
 import CommentView from './CommentView';
 import PostUserInfo from './PostUserInfo';
 import CountInfo from './CountInfo';
+import axios from 'axios';
 
 class PostView extends Component {
     state = {
-        postID: this.props.match.params.id,
+        feed_id: this.props.match.params.id,
         author: '홍길동',
         authorImg: '',
-        postTitle: '보헤미안 랩소디',
-        postContent: '보헤미안 랩소디 설명 영역',
-        time: 1544535429596,
-        likes: 6,
         shareCount: 10,
-        views: 120,
+    }
+
+    // 변경될 때만 업데이트
+    shouldComponentUpdate(nextProps, nextState) {
+        if(this.state !== nextState){
+            return true;
+        }
+
+        return this.props.data !== nextProps.data;
+    }
+
+    componentWillMount () {
+        this.getCardDetail();
+    }
+
+    getCardDetail = () => {
+        console.log("getCardDetail");
+        const feed_id = this.state.feed_id;
+        axios.get('http://dev-jolse.iptime.org:9000/feed/' + feed_id, {})
+        .then( response => {
+            const responseData = response.data;
+            const successValue = responseData.success;
+            if (successValue === 1) {
+                // 성공!
+                let result = responseData.results;
+                console.log(result);
+
+                this.setState({
+                    feed_id: result.feed_id,
+                    author: this.state.author,
+                    title: result.title,
+                    content: result.content,
+                    build_date: result.build_date,
+                    good: result.good,
+                    hits: result.hits,
+                    shareCount: this.state.shareCount,
+                    comments: result.comments,
+                });
+                
+            }
+        } )
+        .catch( response => { console.log(response) } );
     }
 
     updateLikes = (likes) => {
         // Post 좋아요
         this.setState({
-            likes: likes,
+            good: likes,
         });
     }
 
@@ -32,16 +70,17 @@ class PostView extends Component {
     }
 
     render() {
-        const {postID, author, authorImg, postTitle, postContent, time, likes, shareCount, views} = this.state;
+        const {feed_id, author, title, content, build_date, good, shareCount, hits, comments} = this.state;
+        console.log(this.state);
 
         return (
             <div className="postWrap">
                 <div className="postFrame">
-                    <PostUserInfo time={time} author={author} authorImg={authorImg} views={views} />
-                    <PostContent id={postID} title={postTitle} content={postContent} />
-                    <CountInfo likes={likes} updateLikes={this.updateLikes}
+                    <PostUserInfo time={build_date} author={author} views={hits} />
+                    <PostContent id={feed_id} title={title} content={content} />
+                    <CountInfo likes={good} updateLikes={this.updateLikes}
                                 shareCount={shareCount} updateShare={this.updateShare}/>
-                    <CommentView id={postID} />
+                    <CommentView id={feed_id} comments={comments}/>
                 </div>
             </div>
         );

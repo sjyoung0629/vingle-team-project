@@ -2,17 +2,10 @@ $url:'./img/';
 $gray:#a0a0a0;
 $light-gray:#e0e0e0;
 $black:#343434;
-$blue:#227b9e;
-$red:#c75454;
-$green:#65922c;
+$blue:#33bece;
+$red:#f16f6f;
+$green:#9fd443;
 $shadow:0 2px 8px rgba(0,0,0,0.3);
-
-/* 삭제예정 */
-.testBox {text-align:center; padding:15px 0;
-    p {margin-bottom:10px;}
-    button {margin:0 2px;}
-}
-/* 삭제예정 */
 
 .card {
     max-width:560px;
@@ -28,6 +21,7 @@ $shadow:0 2px 8px rgba(0,0,0,0.3);
 }
 .user {
     display:flex;
+    align-items:center;
     .img {
         width:42px;
         height:42px;
@@ -96,10 +90,15 @@ $shadow:0 2px 8px rgba(0,0,0,0.3);
     line-height:1.5;
     white-space:pre-line;
     .more {
+        position: relative;
+        margin-left:-6.5em;
+        padding-left:3em;
         color:$gray;
+        background-image: linear-gradient(to right, transparent , #fff 55%);
         &:before {
             content:"...";
             color:$black;
+            
         }
     }
 }
