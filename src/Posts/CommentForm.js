@@ -8,14 +8,11 @@ class CommentForm extends Component {
     handleSubmit = (e) => {
         // preventDefault: submit의 기본 이벤트 동작을 막음
         e.preventDefault();
-        const state = this.state;
-        // const type = this.props.type;
-        // author, content 값이 있을때만 댓글 입력하도록 함
+        const {content} = this.state;
+        // content 값이 있을때만 댓글 입력하도록 함
         // 향후 button disabled/abled 로 관리
-        if (state.content) {
-            // 댓글 작성한 시간 불러와서 state에 저장
-            // this.state.time = new Date().getTime();
-            this.props.onCreate(state.content);
+        if (content) {
+            this.props.onCreate(content);
             // submit 후 초기화
             this.setState({
                 content: '',
@@ -30,6 +27,7 @@ class CommentForm extends Component {
     }
 
     handleKeyUp = (e) => {
+        e.preventDefault();
         // Enter 키 눌렀을 떄 댓글 입력되도록 함
         if (e.keyCode === 13) {
             this.handleSubmit(e);

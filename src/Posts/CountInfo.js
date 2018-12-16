@@ -4,6 +4,7 @@ import Share from './Share';
 
 class CountInfo extends Component {
     state = {
+        feed_id: this.props.id,
         likes: this.props.likes,
         share: this.props.shareCount,
     }
@@ -21,12 +22,12 @@ class CountInfo extends Component {
     }
 
     render() {
-        const {likes, share} = this.state;
+        const {feed_id, likes, share} = this.state;
 
         return (
             <div className="countInfoArea">
-                <Like likes={likes} onUpdate={this.handleUpdateLikes}/>
-                <Share shareCount={share} onUpdate={this.handleUpdateShare} />
+                <Like id={feed_id} likes={likes} onUpdate={this.handleUpdateLikes}/>
+                <Share id={feed_id} shareCount={share} onUpdate={this.handleUpdateShare} />
             </div>
         );
     }

@@ -3,6 +3,7 @@ import axios from 'axios';
 
 class Like extends Component {
     state = {
+        feed_id: this.props.id,
         like: true,
         likeCount: this.props.likes,
     }
@@ -31,15 +32,43 @@ class Like extends Component {
     }
 
     handleLikeCount = () => {
-        axios.put('/good/:feed_id', {})
-        .then( response => {
-            console.log(response.success);
-            if (response.success === 1) {
-                // 성공
+        let {feed_id, like, likeCount} = this.state;
+        let requestAPI = ''
 
-            }
-        } )
-        .catch( response => { console.log(response) } );
+        if (like) {
+            // 좋아요 증가
+            axios.put('/good/' + feed_id, {})
+            .then( response => {
+                const responseData = response.data;
+                const successValue = responseData.success;
+                if (successValue === 1) {
+                    likeCount++;
+
+                    this.setState({
+                        like: !like,
+                        likeCount: likeCount,
+                    });
+                }
+            } )
+            .catch( response => { console.log(response) } );
+
+        } else {
+            // 좋아요 취소
+            axios.delete('/good/' + feed_id, {})
+            .then( response => {
+                const responseData = response.data;
+                const successValue = responseData.success;
+                if (successValue === 1) {
+                    likeCount--;
+
+                    this.setState({
+                        like: !like,
+                        likeCount: likeCount,
+                    });
+                }
+            } )
+            .catch( response => { console.log(response) } );
+        }
     }
 
     render() {
@@ -47,7 +76,7 @@ class Like extends Component {
 
         return (
             <div className="likeArea">
-                <input type="button" value="좋아요" onClick={this.likeCmt}></input>
+                <input type="button" value="좋아요" onClick={this.handleLikeCount}></input>
                 <span>{likeCount}</span>
             </div>
         );

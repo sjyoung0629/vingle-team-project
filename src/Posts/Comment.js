@@ -28,14 +28,12 @@ class Comment extends Component {
         const {data, onUpdate} = this.props;
         if (this.state.editing) {
             // 수정 모드: 수정된 content값을 업데이트하도록 함
-            onUpdate(data.id, {
-                content: this.state.content,
-            });
+            onUpdate(data.id, this.state.content);
 
         } else {
             // 적용 모드: 수정된(또는 원본) 내용을 가져와서 State에 세팅
             this.setState({
-                content: data.content,
+                content: data.comment,
             });
         }
 
@@ -71,12 +69,13 @@ class Comment extends Component {
     }
 
     render() {
-        const {author, content, likes, time} = this.props.data;
+        // const {author, content, likes, time} = this.props.data;
+        const {comment} = this.props.data;
         const {isComment, editing} = this.state;
 
         return (
             <div className={isComment ? "comment" : "reply"}>
-                <div className="author">{author}</div>
+                {/* <div className="author">{author}</div> */}
                 {
                     editing ? (
                         <Fragment>
@@ -88,13 +87,13 @@ class Comment extends Component {
                         </Fragment>
                     ) : (
                         <Fragment>
-                            <div>{content}</div>
+                            <div>{comment}</div>
                         </Fragment>
                     )
                 }
                 <div className="commentFooterArea">
                     <div className="timeReplyArea">
-                        <FromNow time={time}/>
+                        {/* <FromNow time={time}/> */}
                         {
                             isComment ? (
                                 <Fragment>
@@ -107,7 +106,7 @@ class Comment extends Component {
                         }
                     </div>
                     <div className="updateArea">
-                        <Like likes={likes} onUpdate={this.handleUpdateLikes}/>
+                        {/* <Like likes={likes} onUpdate={this.handleUpdateLikes}/> */}
                         <span>{this.state.cmtCount}</span>
                         <input type="button" value={editing ? "적용" : "수정"}
                                 onClick={this.handleToggleEdit}></input>

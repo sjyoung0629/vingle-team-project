@@ -22,13 +22,15 @@ class PostView extends Component {
         return this.props.data !== nextProps.data;
     }
 
+    // 컴포넌트가 DOM 위에 만들어지기 전에 실행
     componentWillMount () {
         this.getCardDetail();
     }
 
+    // 상세 페이지 보여주기
     getCardDetail = () => {
-        console.log("getCardDetail");
         const feed_id = this.state.feed_id;
+        console.log("getCardDetail feed == ", feed_id);
         axios.get('http://dev-jolse.iptime.org:9000/feed/' + feed_id, {})
         .then( response => {
             const responseData = response.data;
@@ -78,7 +80,7 @@ class PostView extends Component {
                 <div className="postFrame">
                     <PostUserInfo time={build_date} author={author} views={hits} />
                     <PostContent id={feed_id} title={title} content={content} />
-                    <CountInfo likes={good} updateLikes={this.updateLikes}
+                    <CountInfo id={feed_id} likes={good} updateLikes={this.updateLikes}
                                 shareCount={shareCount} updateShare={this.updateShare}/>
                     <CommentView id={feed_id} comments={comments}/>
                 </div>

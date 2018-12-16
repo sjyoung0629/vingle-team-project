@@ -16,7 +16,7 @@ class CommentView extends Component {
     state = {
         sortBy: "likes",
         feed_id: this.props.id,
-        comments: [],
+        comments: this.props.comments,
         information: [{
             id: 0,
             author: 'sjyoung',
@@ -83,7 +83,11 @@ class CommentView extends Component {
 
     componentWillMount () {
         console.log("componentWillMount");
-        this.getComments();
+        // this.getComments();
+        const {comments} = this.props;
+        this.setState({
+            comments: comments,
+        });
     }
 
     // 댓글 가져와서 보여주기
@@ -95,21 +99,10 @@ class CommentView extends Component {
     }
 
     // 댓글 입력
-    handleCreate = (data) => {
-        const {information} = this.state;
-        this.setState({
-          information: information.concat({
-            // data가 추가될때마다 id 값 ++
-            ...data,
-            id: this.comment_id++,
-            reply: [],
-          })
-        });
-    }
-
-    // 댓글 입력
     handleSubmitComment = (data) => {
-        const feed_id = this.state.feed_id;
+        const {feed_id} = this.state;
+        let {comments} = this.state;
+
         axios.post('http://dev-jolse.iptime.org:9000/comment/' + feed_id, {
             comment: data,
         })
@@ -120,7 +113,71 @@ class CommentView extends Component {
                 // 작성 성공!
                 let comment_id = responseData.insertId;
                 console.log("### comment 입력 성공! id = " + comment_id);
+                this.setState({
+                    comments: comments.concat({
+                        id: comment_id,
+                        comment: data,
+                        feed_id: feed_id,
+                    })
+                });
+            }
+        } )
+        .catch( response => { console.log(response) } );
+    }
 
+    // 댓글 수정
+    handleUpdateComment = (id, data) => {
+        // const {comment_id} = this.state;
+        const comment_id = id;
+        let {comments} = this.state;
+        axios.put('http://dev-jolse.iptime.org:9000/comment/' + comment_id, {
+            comment: data,
+        })
+        .then( response => {
+            const responseData = response.data;
+            const successValue = responseData.success;
+            if (successValue === 1) {
+                // 댓글 수정 성공!
+                console.log("### comment 수정 성공! id = " + comment_id);
+                this.setState({
+                    comments: comments.map(
+                        info => {
+                            if (info.id === comment_id) {
+                                return {
+                                    id: comment_id,
+                                    comment: data,
+                                    feed_id: this.state.feed_id,
+                                };
+
+                                //  "comment_id": 8,
+                                // "comment": "dsfsaf",
+                                // "feed_id": 11
+                            }
+                            return info;
+                        }
+                    )
+                });
+            }
+        } )
+        .catch( response => { console.log(response) } );
+    }
+
+    // 댓글 삭제
+    handleDeleteCommit = (id) => {
+        const comment_id = id;
+        let {comments} = this.state;
+
+        axios.delete('http://dev-jolse.iptime.org:9000/comment/' + comment_id, {})
+        .then( response => {
+            const responseData = response.data;
+            const successValue = responseData.success;
+            if (successValue === 1) {
+                // 댓글 삭제 성공!
+                console.log("### comment 삭제 성공! id = " + comment_id);
+                console.dir(comments);
+                this.setState({
+                    comments: comments.filter(info => info.id !== comment_id)
+                });
             }
         } )
         .catch( response => { console.log(response) } );
@@ -322,7 +379,7 @@ class CommentView extends Component {
     }
     
     render() {
-        let {comments} = this.props;
+        let {comments} = this.state;
 
         console.log(comments);
         let {sortBy} = this.state;
@@ -354,8 +411,8 @@ class CommentView extends Component {
                 </div>
                 <div>
                     <CommentList data={comments}
-                    onUpdate={this.handleUpdate}
-                    onRemove={this.handleRemove}
+                    onUpdate={this.handleUpdateComment}
+                    onRemove={this.handleDeleteCommit}
                     updateLikes={this.updateLikes}
                     onCreateReply={this.handleCreateReply}/>
                     <hr />
