@@ -33,7 +33,6 @@ class Like extends Component {
 
     handleLikeCount = () => {
         let {feed_id, like, likeCount} = this.state;
-        let requestAPI = ''
 
         if (like) {
             // 좋아요 증가

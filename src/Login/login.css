@@ -1,0 +1,29 @@
+.signin_wrapper {
+    width: 350px;
+    margin: 0 auto;
+    margin-top: 94px;
+}
+
+.login_form {
+    display: block;
+}
+
+.login_input_area {
+    display: flex;
+    position: relative;
+    width: 100%;
+    height: 55px;
+    border-radius: 6px;
+    border: 1px solid #aeb8bd;
+}
+
+.login_input {
+    width: 100%;
+    height: 100%;
+    font-size: 14px;
+    font-weight: 300;
+    border-radius: 6px;
+    padding-left: 20px;
+    outline: none;
+    border: none;
+}

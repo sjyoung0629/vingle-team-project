@@ -11,6 +11,12 @@ class PostView extends Component {
         author: '홍길동',
         authorImg: '',
         shareCount: 10,
+        title: '',
+        content: '',
+        build_date: '',
+        good: 0,
+        hits: 0,
+        comments: [],
     }
 
     // 변경될 때만 업데이트
@@ -22,14 +28,15 @@ class PostView extends Component {
         return this.props.data !== nextProps.data;
     }
 
-    // 컴포넌트가 DOM 위에 만들어지기 전에 실행
-    componentWillMount () {
+    // 컴포넌트가 DOM 위에 만들어진 후에 실행
+    componentDidMount () {
+        console.log("### PostView componentDidMount");
         this.getCardDetail();
     }
 
     // 상세 페이지 보여주기
     getCardDetail = () => {
-        const feed_id = this.state.feed_id;
+        const feed_id = this.props.match.params.id;
         console.log("getCardDetail feed == ", feed_id);
         axios.get('http://dev-jolse.iptime.org:9000/feed/' + feed_id, {})
         .then( response => {
@@ -42,19 +49,16 @@ class PostView extends Component {
 
                 this.setState({
                     feed_id: result.feed_id,
-                    author: this.state.author,
                     title: result.title,
                     content: result.content,
                     build_date: result.build_date,
                     good: result.good,
                     hits: result.hits,
-                    shareCount: this.state.shareCount,
                     comments: result.comments,
                 });
-                
             }
         } )
-        .catch( response => { console.log(response) } );
+        .catch( error => { console.log(error) } );
     }
 
     updateLikes = (likes) => {
@@ -73,7 +77,7 @@ class PostView extends Component {
 
     render() {
         const {feed_id, author, title, content, build_date, good, shareCount, hits, comments} = this.state;
-        console.log(this.state);
+        console.log(comments);
 
         return (
             <div className="postWrap">

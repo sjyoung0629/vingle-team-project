@@ -9,6 +9,7 @@ import Write from '../Write/Write';
 import '../Card/Card.scss';
 import '../Ui/Ui.scss';
 import axios from 'axios';
+import Login from '../Login/login';
 
 class List extends Component {
 
@@ -97,6 +98,8 @@ class List extends Component {
 
     return (
       <>
+
+        <Login />
         
         {/* 카드 */}
 
@@ -108,7 +111,6 @@ class List extends Component {
               write={this.openWrite}
               view={this.openDetail}
               history={history}
-              id={i}
               card={feed[i]}
               key={i}
             />

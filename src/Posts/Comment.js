@@ -71,6 +71,7 @@ class Comment extends Component {
     render() {
         // const {author, content, likes, time} = this.props.data;
         const {comment} = this.props.data;
+        console.log("Comment => " + this.props.data);
         const {isComment, editing} = this.state;
 
         return (

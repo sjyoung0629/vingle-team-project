@@ -39,6 +39,7 @@ class CardUser extends Component {
       time,
     } = this.state;
     
+    const {id} = this.props;
 
     return (
       <>
@@ -47,7 +48,7 @@ class CardUser extends Component {
         <div className="user">
           <div className="img"><a href="#"><img src="https://media.vingle.net/images/us_l/w5w8vzbw6j.jpg" alt="" /></a></div>
           <div className="info">
-            <div className="name"><a href="#">작성자명 데이터 필요해요</a></div>
+            <div className="name"><a href="#">{id} 작성자명</a></div>
             <div className="time">{time}</div>
           </div>
           <div className="follow">

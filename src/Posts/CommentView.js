@@ -15,8 +15,6 @@ class CommentView extends Component {
 
     state = {
         sortBy: "likes",
-        feed_id: this.props.id,
-        comments: this.props.comments,
         information: [{
             id: 0,
             author: 'sjyoung',
@@ -81,20 +79,20 @@ class CommentView extends Component {
         return this.props.data !== nextProps.data;
     }
 
-    componentWillMount () {
-        console.log("componentWillMount");
-        // this.getComments();
-        const {comments} = this.props;
+    componentDidMount () {
+        console.log("### CommentView ComponentDidMount");
         this.setState({
-            comments: comments,
+            feed_id: this.props.id,
+            comments: this.props.comments,
         });
     }
 
     // 댓글 가져와서 보여주기
     getComments = () => {
         const {comments} = this.props;
+        let commentList = this.state.comments;
         this.setState({
-            comments: comments,
+            comments: commentList.concat(comments),
         });
     }
 
@@ -379,16 +377,17 @@ class CommentView extends Component {
     }
     
     render() {
-        let {comments} = this.state;
+        let {comments} = this.props;
 
-        console.log(comments);
+        console.log("### CommentView comments");
+        console.dir(comments);
         let {sortBy} = this.state;
         const arr_len = comments.length;
 
         // 기준(추천순/최신순)에 따라 정렬 수행
-        comments = comments.sort(function(a, b) {
-            return b[sortBy] - a[sortBy];
-        });
+        // comments = comments.sort(function(a, b) {
+        //     return b[sortBy] - a[sortBy];
+        // });
 
         return (
             <div className="commentListWrap">

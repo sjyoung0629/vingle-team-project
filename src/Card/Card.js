@@ -72,7 +72,7 @@ class Card extends Component {
   // (임시)상세페이지
   openDetail = () =>{
     // this.setState({detail: true});
-    const cardID = this.props.id;
+    const cardID = this.props.card.feed_id;
     this.props.history.push('/posts/' + cardID);
   }
   
@@ -98,7 +98,7 @@ class Card extends Component {
 
         {/* 카드 */}
         <div className="card">
-          <CardUser
+          <CardUser id={card.feed_id}
             confirm={this.openConfirm}
             popup={this.openPopup}
             completeMsg={this.toastMsg}
