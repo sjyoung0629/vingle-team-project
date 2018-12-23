@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import CommentForm from './CommentForm';
 import CommentList from './CommentList';
 import axios from 'axios';
-import './Comment.css';
 
 class CommentView extends Component {
     // 댓글마다 고유한 id값

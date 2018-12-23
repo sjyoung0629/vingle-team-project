@@ -4,6 +4,7 @@ import CommentView from './CommentView';
 import PostUserInfo from './PostUserInfo';
 import CountInfo from './CountInfo';
 import axios from 'axios';
+import './Comment.css';
 
 class PostView extends Component {
     state = {
