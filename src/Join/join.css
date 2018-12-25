@@ -52,15 +52,23 @@
     margin-top: 12px;
 }
 
-.login_submit {
+.submit_btn {
     width: 350px;
+    height: 55px;
+    border-radius: 100px;
+    margin-top: 30px;
     border: solid 1px #394247;
     color: #394247;
-    opacity: 0.4;
-    height: 55px;
-    line-height: 55px;
-    border-radius: 100px;
     font-size: 14px;
-    cursor: pointer;
     text-align: center;
+}
+
+.do_submit {
+    cursor: pointer;
+}
+
+.non_submit {
+    opacity: 0.4;
+    pointer-events: none;
+    cursor: not-allowed;
 }

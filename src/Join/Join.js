@@ -6,11 +6,32 @@ class Join extends Component {
     state = {
         email: '',
         password: '',
+        isValidEmail: false,
+        isValidPw: false,
+        doJoin: false,
     }
 
     handleChange = (e) => {
+        let {isValidEmail, isValidPw} = this.state;
+        const target_name = e.target.name;
+        const value = e.target.value;
+        // 정규식 활용하여 유효성 체크
+        const reg_text = target_name === "email"
+                    ? /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/
+                    : /^[a-zA-Z0-9]{6,12}$/;
+
+        if (target_name === "email") {
+            isValidEmail = reg_text.test(value);
+
+        } else if (target_name === "password") {
+            isValidPw = reg_text.test(value);
+        }
+
         this.setState({
-            [e.target.name]: e.target.value
+            [target_name]: value,
+            isValidEmail: isValidEmail,
+            isValidPw: isValidPw,
+            doJoin: isValidEmail && isValidPw,
         });
     }
 
@@ -34,6 +55,8 @@ class Join extends Component {
     }
 
     render() {
+        const {doJoin} = this.state;
+
         return (
             <div className="signin_wrapper">
                 <h1 className="signin_title">회원가입</h1>
@@ -41,14 +64,16 @@ class Join extends Component {
                     <div className="login_input_area">
                         <input type="text" name="email" className="login_input"
                             placeholder="이메일" onChange={this.handleChange}/>
+                        <span></span>
                     </div>
                     <div className="login_input_area">
                         <input type="password" name="password" className="login_input"
-                            placeholder="비밀번호" onChange={this.handleChange}/>
+                            placeholder="비밀번호 (6~12자의 영문 대소문자 및 숫자)"
+                            onChange={this.handleChange}/>
                     </div>
                     <div className="login_button_area">
-                        <input type="button" className="login_submit" value="회원가입"
-                            onClick={this.joinSubmit}/>
+                        <input type="button" value="회원가입" onClick={doJoin ? this.joinSubmit: null}
+                            className={doJoin ? "submit_btn do_submit" : "submit_btn non_submit"} />
                     </div>
                 </form>
             </div>

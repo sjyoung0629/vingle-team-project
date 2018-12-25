@@ -7,17 +7,23 @@ import axios from 'axios';
 import './Comment.css';
 
 class PostView extends Component {
-    state = {
-        feed_id: this.props.match.params.id,
-        author: '홍길동',
-        authorImg: '',
-        shareCount: 10,
-        title: '',
-        content: '',
-        build_date: '',
-        good: 0,
-        hits: 0,
-        comments: [],
+    _isMounted = false;
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            feed_id: this.props.match.params.id,
+            author: '홍길동',
+            authorImg: '',
+            shareCount: 10,
+            title: '',
+            content: '',
+            build_date: '',
+            good: 0,
+            hits: 0,
+            comments: [],
+        };
     }
 
     // 변경될 때만 업데이트
@@ -31,8 +37,13 @@ class PostView extends Component {
 
     // 컴포넌트가 DOM 위에 만들어진 후에 실행
     componentDidMount () {
+        this._isMounted = true;
         console.log("### PostView componentDidMount");
         this.getCardDetail();
+    }
+
+    componentWillUnmount () {
+        this._isMounted = false;
     }
 
     // 상세 페이지 보여주기
@@ -48,11 +59,14 @@ class PostView extends Component {
                 let result = responseData.results;
                 console.log(result);
 
-                this.setState({
+                const build_date = new Date(result.build_date);
+                console.log("time == ", build_date.getTime());
+
+                this._isMounted && this.setState({
                     feed_id: result.feed_id,
                     title: result.title,
                     content: result.content,
-                    build_date: result.build_date,
+                    build_date: build_date.getTime(),
                     good: result.good,
                     hits: result.hits,
                     comments: result.comments,
