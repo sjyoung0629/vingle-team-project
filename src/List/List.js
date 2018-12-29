@@ -9,7 +9,6 @@ import Write from '../Write/Write';
 import '../Card/Card.scss';
 import '../Ui/Ui.scss';
 import axios from 'axios';
-import Login from '../Login/Login';
 
 class List extends Component {
 

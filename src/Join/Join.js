@@ -16,14 +16,14 @@ class Join extends Component {
         const target_name = e.target.name;
         const value = e.target.value;
         // 정규식 활용하여 유효성 체크
-        const reg_text = target_name === "email"
-                    ? /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/
-                    : /^[a-zA-Z0-9]{6,12}$/;
+        let reg_text = '';
 
         if (target_name === "email") {
+            reg_text = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/
             isValidEmail = reg_text.test(value);
 
         } else if (target_name === "password") {
+            reg_text = /^[a-zA-Z0-9]{6,12}$/;
             isValidPw = reg_text.test(value);
         }
 

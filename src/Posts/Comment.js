@@ -1,6 +1,4 @@
 import React, { Component, Fragment } from 'react';
-import Like from './Like';
-import FromNow from './FromNow';
 
 class Comment extends Component {
     state = {
@@ -26,9 +24,10 @@ class Comment extends Component {
     // editing 값에 따라 수정/적용
     handleToggleEdit = () => {
         const {data, onUpdate} = this.props;
+        console.log("update content => " + this.state.content);
         if (this.state.editing) {
             // 수정 모드: 수정된 content값을 업데이트하도록 함
-            onUpdate(data.id, this.state.content);
+            onUpdate(data.comment_id, this.state.content);
 
         } else {
             // 적용 모드: 수정된(또는 원본) 내용을 가져와서 State에 세팅
@@ -71,7 +70,6 @@ class Comment extends Component {
     render() {
         // const {author, content, likes, time} = this.props.data;
         const {comment} = this.props.data;
-        console.log("Comment => " + this.props.data);
         const {isComment, editing} = this.state;
 
         return (
