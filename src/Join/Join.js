@@ -1,6 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import './join.css';
 import axios from 'axios';
+import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { cc, checkJoin } from '../actions/infoAction';
 
 class Join extends Component {
     state = {
@@ -49,6 +52,7 @@ class Join extends Component {
             const successValue = responseData.success;
             if (successValue === 1) {
                 console.log("회원가입 성공");
+                this.props.checkJoin();
             }
         } )
         .catch( error => { console.log(error) } );
@@ -58,27 +62,48 @@ class Join extends Component {
         const {doJoin} = this.state;
 
         return (
-            <div className="signin_wrapper">
-                <h1 className="signin_title">회원가입</h1>
-                <form className="login_form">
-                    <div className="login_input_area">
-                        <input type="text" name="email" className="login_input"
-                            placeholder="이메일" onChange={this.handleChange}/>
-                        <span></span>
-                    </div>
-                    <div className="login_input_area">
-                        <input type="password" name="password" className="login_input"
-                            placeholder="비밀번호 (6~12자의 영문 대소문자 및 숫자)"
-                            onChange={this.handleChange}/>
-                    </div>
-                    <div className="login_button_area">
-                        <input type="button" value="회원가입" onClick={doJoin ? this.joinSubmit: null}
-                            className={doJoin ? "submit_btn do_submit" : "submit_btn non_submit"} />
-                    </div>
-                </form>
-            </div>
+            <Fragment>
+                {/* joined=true 면 Login으로 이동 */}
+                {this.props.joined && <Redirect to="/login" />}
+                <div className="signin_wrapper">
+                    <h1 className="signin_title">회원가입</h1>
+                    <form className="login_form">
+                        <div className="login_input_area">
+                            <input type="text" name="email" className="login_input"
+                                placeholder="이메일" onChange={this.handleChange}/>
+                            <span></span>
+                        </div>
+                        <div className="login_input_area">
+                            <input type="password" name="password" className="login_input"
+                                placeholder="비밀번호 (6~12자의 영문 대소문자 및 숫자)"
+                                onChange={this.handleChange}/>
+                        </div>
+                        <div className="login_button_area">
+                            <input type="button" value="회원가입" onClick={doJoin ? this.joinSubmit: null}
+                                className={doJoin ? "submit_btn do_submit" : "submit_btn non_submit"} />
+                        </div>
+                    </form>
+                </div>
+            </Fragment>
         );
     }
 }
 
-export default Join;
+const mapStateToProps = (state) => {
+    return {
+        logged: state.infoFunc.logged,
+        joined: state.infoFunc.joined
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    console.log("## dispatch 회원가입 function");
+    return {
+        b: () => {dispatch(cc())},
+        checkJoin: () => {dispatch(checkJoin())}
+    }
+}
+
+// connect(state, action)
+// mapStateToProps: store의 state를 props로 갖고 온다
+export default connect(mapStateToProps, mapDispatchToProps)(Join);

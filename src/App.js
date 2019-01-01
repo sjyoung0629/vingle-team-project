@@ -9,16 +9,29 @@ import Login from './Login/Login';
 import Join from './Join/Join';
 
 class App extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      logged: false,
+    }
+  }
+
+  isAuth = () => {
+    this.setState({logged: !this.state.logged});
+    localStorage.setItem('logged', !this.state.logged);
+  }
+
   render() {
     return (
       <Router>
         <div className="rootContainer">
-          <Route path="/editor" component={Editor}/>
+          <Route path="/editor" rrender={(props) => <Editor {...props} auth={this.isAuth}/>} />
           <Route path="/searchList" component={SearchList}/>
-          <Route exact path="/" component={List}/>
-          <Route path="/join" component={Join}/>
-          <Route path="/login" component={Login}/>
-          <Route path="/posts/:id" component={PostView}/>
+          <Route path="/list" render={(props) => <List {...props} auth={this.isAuth}/>}/>
+          <Route exact path="/" render={(props) => <Join {...props} auth={this.isAuth}/>}/>
+          <Route path="/login" render={(props) => <Login {...props} auth={this.isAuth} />}/>
+          <Route path="/posts/:id" render={(props) => <PostView {...props} auth={this.isAuth}/>}/>
         </div>
       </Router>
     );
