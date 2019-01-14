@@ -13,7 +13,7 @@ class CardAddedPage extends Component {
               sight={added.sight}
               view = {this.props.view}
         />
-        {console.log(this.props.added)}
+        {/* {console.log(this.props.added)} */}
       </>
     );
   }

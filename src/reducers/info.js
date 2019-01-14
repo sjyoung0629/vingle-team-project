@@ -14,8 +14,7 @@ const info = {
  * @param {*} state 
  * @param {*} action 
  */
-const infoFunc = (state = info, action = types.ISAUTH) => {
-    console.log(action);
+const infoFunc = (state = info, action) => {
     switch (action.type) {
         case types.ISAUTH:
             console.log("infoFunc logged == " + state.logged);
@@ -27,10 +26,6 @@ const infoFunc = (state = info, action = types.ISAUTH) => {
             return state;
     }
 }
-
-// const checkValidFunc = (state, action = types.ISVALID) => {
-
-// }
 
 // store에 연결(combine)
 const reducers = combineReducers({

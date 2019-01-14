@@ -72,3 +72,11 @@
     pointer-events: none;
     cursor: not-allowed;
 }
+
+.go_sign_in {
+    width: 350px;
+    font-size: 14px;
+    font-weight: 400;
+    text-align: center;
+    margin-top: 40px;
+}

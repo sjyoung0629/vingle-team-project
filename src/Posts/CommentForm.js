@@ -10,7 +10,6 @@ class CommentForm extends Component {
         e.preventDefault();
         const {content} = this.state;
         // content 값이 있을때만 댓글 입력하도록 함
-        // 향후 button disabled/abled 로 관리
         if (content) {
             this.props.onCreate(content);
             // submit 후 초기화

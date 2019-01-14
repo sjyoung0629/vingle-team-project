@@ -58,6 +58,10 @@ class Join extends Component {
         .catch( error => { console.log(error) } );
     }
 
+    moveToLogin = () => {
+        this.props.history.push('/login');
+    }
+
     render() {
         const {doJoin} = this.state;
 
@@ -83,6 +87,12 @@ class Join extends Component {
                                 className={doJoin ? "submit_btn do_submit" : "submit_btn non_submit"} />
                         </div>
                     </form>
+                    <div className="go_sign_in">
+                        <span>이미 가입되어 있나요?</span>
+                        <span onClick={this.moveToLogin}>
+                            <span>로그인</span>
+                        </span>
+                    </div>
                 </div>
             </Fragment>
         );

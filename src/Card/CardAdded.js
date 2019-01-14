@@ -22,12 +22,12 @@ class CardAdded extends Component {
         */
         
         /* 썸네일형 데이터 */
-        {src:'http://images5.fanpop.com/image/photos/25700000/Gifs-gifs-25782795-360-240.gif', format:'gif', width:'800', height:'600', title:'', desc:'', href:'', url:''},
-        {src:'https://cdn.2kgames.com/civilization.com/RF-Cree/RF-Cree-leader.jpg', format:'jpg', width:'1920', height:'1080', title:'', desc:'', href:'', url:''},
-        {src:'https://cdn.2kgames.com/civilization.com/RF-Cree/RF-Cree-leader.jpg', format:'video', width:'1920', height:'1080', title:'', desc:'', href:'', url:''},
-        {src:'https://cdn.2kgames.com/civilization.com/RF-Cree/RF-Cree-leader.jpg', format:'jpg', width:'1920', height:'1080', title:'', desc:'', href:'', url:''},
-        {src:'https://cdn.2kgames.com/civilization.com/RF-Cree/RF-Cree-leader.jpg', format:'jpg', width:'1920', height:'1080', title:'', desc:'', href:'', url:''},
-        {src:'https://cdn.2kgames.com/civilization.com/RF-Cree/RF-Cree-leader.jpg', format:'jpg', width:'1920', height:'1080', title:'', desc:'', href:'', url:''},
+        {src:'', format:'gif', width:'800', height:'600', title:'', desc:'', href:'', url:''},
+        // {src:'https://cdn.2kgames.com/civilization.com/RF-Cree/RF-Cree-leader.jpg', format:'jpg', width:'1920', height:'1080', title:'', desc:'', href:'', url:''},
+        // {src:'https://cdn.2kgames.com/civilization.com/RF-Cree/RF-Cree-leader.jpg', format:'video', width:'1920', height:'1080', title:'', desc:'', href:'', url:''},
+        // {src:'https://cdn.2kgames.com/civilization.com/RF-Cree/RF-Cree-leader.jpg', format:'jpg', width:'1920', height:'1080', title:'', desc:'', href:'', url:''},
+        // {src:'https://cdn.2kgames.com/civilization.com/RF-Cree/RF-Cree-leader.jpg', format:'jpg', width:'1920', height:'1080', title:'', desc:'', href:'', url:''},
+        // {src:'https://cdn.2kgames.com/civilization.com/RF-Cree/RF-Cree-leader.jpg', format:'jpg', width:'1920', height:'1080', title:'', desc:'', href:'', url:''},
         
       ],
       insight: '',
