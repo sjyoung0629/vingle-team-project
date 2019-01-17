@@ -4,18 +4,17 @@ import CommentList from './CommentList';
 import axios from 'axios';
 
 class CommentView extends Component {
-    // 댓글마다 고유한 id값
-    comment_id = 3;
-    reply_id = 2;
-
     static defaultProps = {
         comments: []
     }
 
-    state = {
-        sortBy: "likes",
-        feed_id: this.props.id,
-        comments: this.props.comments,
+    constructor (props) {
+        super(props);
+        this.state = {
+            sortBy: "likes",
+            feed_id: props.id,
+            comments: props.comments,
+        }
     }
 
     /**
@@ -40,7 +39,14 @@ class CommentView extends Component {
             return true;
         }
         
-        return this.props.comments !== nextProps.comments;
+        const isUpdate = (this.props.comments !== nextProps.comments);
+        if (isUpdate) {
+            this.setState({
+                comments: nextProps.comments
+            });
+        }
+        
+        return isUpdate;
     }
 
     componentDidMount () {
@@ -61,6 +67,7 @@ class CommentView extends Component {
     handleSubmitComment = (data) => {
         const {feed_id} = this.state;
         let {comments} = this.state;
+        console.log("comment input data = ", data);
 
         axios.post('http://dev-jolse.iptime.org:9000/comment/' + feed_id, {
             comment: data,
@@ -140,98 +147,6 @@ class CommentView extends Component {
         .catch( response => { console.log(response) } );
     }
 
-    // 답글 입력
-    handleCreateReply = (id, data) => {
-        const {information} = this.state;
-
-        this.setState({
-            information: information.map(
-                info => {
-                    if (info.id === id) {
-                        return {
-                            id: info.id,
-                            author: info.author,
-                            content: info.content,
-                            likes: info.likes,
-                            time: info.time,
-                            reply: info.reply.concat({
-                                // 답글이 추가될 때 id 설정
-                                id: info.id + "-" + this.reply_id++,
-                                ...data
-                            })
-                        }
-                    }
-                    return info;
-                }
-            )
-        });
-    }
-
-    // 댓글 수정
-    handleUpdate = (id, data) => {
-        let {information} = this.state;
-        // id 의 type으로 댓글/답글 여부 판단
-        const isReply = (typeof(id) === 'string');
-
-        if (isReply) {
-            // 댓글의 답글 수정
-            const idArr = id.split('-');
-            const commentId = idArr[0];
-
-            this.setState({
-                information: information.map(
-                    info => {
-                        if (info.id.toString() === commentId) {
-                            let reply = info.reply;
-                            return {
-                                id: info.id,
-                                author: info.author,
-                                content: info.content,
-                                likes: info.likes,
-                                time: info.time,
-                                reply: reply.map(
-                                    rep => {
-                                        if (rep.id === id) {
-                                            return {
-                                                id: rep.id,
-                                                author: rep.author,
-                                                time: rep.time,
-                                                likes: rep.likes,
-                                                ...data
-                                            }
-                                        }
-                                        return rep;
-                                })
-                                
-                            }
-                        }
-                        return info;
-                    }
-                )
-            });
-            
-        } else {
-            // 기본 댓글 수정
-            this.setState({
-                information: information.map(
-                    info => {
-                        if (info.id === id) {
-                            return {
-                                id: id,
-                                author: info.author,
-                                time: info.time,
-                                likes: info.likes,
-                                reply: info.reply,
-                                ...data,
-                            };
-                        }
-                        return info;
-                    }
-                )
-            });
-        }
-    }
-
     // 좋아요 수 반영
     updateLikes = (id, likes) => {
         const {information} = this.state;
@@ -296,47 +211,10 @@ class CommentView extends Component {
             });
         }
     }
-
-    // 댓글 삭제
-    handleRemove = (id) => {
-        const {information} = this.state;
-        // id 의 type으로 댓글/답글 여부 판단
-        const isReply = (typeof(id) === 'string');
-
-        if (isReply) {
-            // 답글 삭제
-            const idArr = id.split('-');
-            const commentId = idArr[0];
-
-            this.setState({
-                information: information.map(
-                    info => {
-                        if (info.id.toString() === commentId) {
-                            let reply = info.reply;
-                            return {
-                                id: info.id,
-                                author: info.author,
-                                content: info.content,
-                                likes: info.likes,
-                                time: info.time,
-                                reply: reply.filter(rep => rep.id !== id),
-                            }
-                        }
-                        return info;
-                    }
-                )
-            });
-
-        } else {
-            // 댓글 삭제
-            this.setState({
-                information: information.filter(info => info.id !== id)
-            });
-        }        
-    }
     
     render() {
-        let {comments} = this.props;
+        let {comments} = this.state;
+        console.log("render comments = ", comments);
         let {sortBy} = this.state;
         const arr_len = comments.length;
 

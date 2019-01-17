@@ -22,7 +22,7 @@ class Join extends Component {
         let reg_text = '';
 
         if (target_name === "email") {
-            reg_text = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/
+            reg_text = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
             isValidEmail = reg_text.test(value);
 
         } else if (target_name === "password") {

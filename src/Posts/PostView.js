@@ -38,7 +38,7 @@ class PostView extends Component {
     // 컴포넌트가 DOM 위에 만들어진 후에 실행
     componentDidMount () {
         this._isMounted = true;
-        console.log("### PostView componentDidMount");
+        // console.log("### PostView componentDidMount");
         this.getCardDetail();
     }
 
@@ -49,7 +49,7 @@ class PostView extends Component {
     // 상세 페이지 보여주기
     getCardDetail = () => {
         const feed_id = this.props.match.params.id;
-        console.log("getCardDetail feed == ", feed_id);
+        // console.log("getCardDetail feed == ", feed_id);
         axios.get('http://dev-jolse.iptime.org:9000/feed/' + feed_id, {})
         .then( response => {
             const responseData = response.data;
@@ -57,10 +57,10 @@ class PostView extends Component {
             if (successValue === 1) {
                 // 성공!
                 let result = responseData.results;
-                console.log(result);
+                // console.log(result);
 
                 const build_date = new Date(result.build_date);
-                console.log("time == ", build_date.getTime());
+                // console.log("time == ", build_date.getTime());
 
                 this._isMounted && this.setState({
                     feed_id: result.feed_id,
@@ -92,7 +92,6 @@ class PostView extends Component {
 
     render() {
         const {feed_id, author, title, content, build_date, good, shareCount, hits, comments} = this.state;
-        console.log(comments);
 
         return (
             <div className="postWrap">
