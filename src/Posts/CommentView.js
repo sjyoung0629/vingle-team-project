@@ -51,15 +51,8 @@ class CommentView extends Component {
 
     componentDidMount () {
         console.log("### CommentView ComponentDidMount");
-        this.getComments();
-    }
-
-    // 댓글 가져와서 보여주기
-    getComments = () => {
-        const {comments} = this.props;
-        let commentList = this.state.comments;
         this.setState({
-            comments: commentList.concat(comments),
+            comments: this.props.comments
         });
     }
 
@@ -94,7 +87,7 @@ class CommentView extends Component {
     // 댓글 수정
     handleUpdateComment = (id, data) => {
         const comment_id = id;
-        let {comments} = this.state;
+        let {feed_id, comments} = this.state;
         console.log(comments);
         axios.put('http://dev-jolse.iptime.org:9000/comment/' + comment_id, {
             comment: data,
@@ -109,12 +102,12 @@ class CommentView extends Component {
                 this.setState({
                     comments: comments.map(
                         info => {
-                            console.log(info.id + "===" + comment_id);
-                            if (info.id === comment_id) {
+                            if (info.comment_id === comment_id) {
+                                console.log(info.comment_id + "===" + comment_id);
                                 return {
                                     id: comment_id,
                                     comment: data,
-                                    feed_id: this.state.feed_id,
+                                    feed_id: feed_id,
                                 };
                             }
                             return info;
@@ -140,7 +133,7 @@ class CommentView extends Component {
                 console.log("### comment 삭제 성공! id = " + comment_id);
                 console.dir(comments);
                 this.setState({
-                    comments: comments.filter(info => info.id !== comment_id)
+                    comments: comments.filter(info => info.comment_id !== comment_id)
                 });
             }
         } )

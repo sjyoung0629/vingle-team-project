@@ -98,7 +98,7 @@ class PostView extends Component {
                 <div className="postFrame">
                     <PostUserInfo time={build_date} author={author} views={hits} />
                     <PostContent id={feed_id} title={title} content={content} />
-                    <CountInfo id={feed_id} likes={good} updateLikes={this.updateLikes}
+                    <CountInfo id={feed_id} likes={good} time={build_date} updateLikes={this.updateLikes}
                                 shareCount={shareCount} updateShare={this.updateShare}/>
                     <CommentView id={feed_id} comments={comments}/>
                 </div>

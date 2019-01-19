@@ -1,9 +1,14 @@
 import React, { Component, Fragment } from 'react';
+import Like from './Like';
+import FromNow from './FromNow';
 
 class Comment extends Component {
     state = {
         isComment: (this.props.type === "comment"),
         editing: false,
+        content: this.props.data.comment,
+        likes: this.props.data.good,
+        time: this.props.data.build_date
     }
 
     // 변경된 부분만 업데이트
@@ -24,10 +29,11 @@ class Comment extends Component {
     // editing 값에 따라 수정/적용
     handleToggleEdit = () => {
         const {data, onUpdate} = this.props;
-        console.log("update content => " + this.state.content);
-        if (this.state.editing) {
+        const {content, editing} = this.state;
+        console.log("update content => " + data.comment_id + "|" + content);
+        if (editing) {
             // 수정 모드: 수정된 content값을 업데이트하도록 함
-            onUpdate(data.comment_id, this.state.content);
+            onUpdate(data.comment_id, content);
 
         } else {
             // 적용 모드: 수정된(또는 원본) 내용을 가져와서 State에 세팅
@@ -45,7 +51,7 @@ class Comment extends Component {
     // '좋아요' 수 반영
     handleUpdateLikes = (likes) => {
         const {data, updateLikes} = this.props;
-        updateLikes(data.id, likes);
+        updateLikes(data.comment_id, likes);
     }
 
     handleChange = (e) => {
@@ -64,13 +70,13 @@ class Comment extends Component {
     // 댓글 삭제
     handleRemove = () => {
         const {data, onRemove} = this.props;
-        onRemove(data.id);
+        onRemove(data.comment_id);
     }
 
     render() {
         // const {author, content, likes, time} = this.props.data;
         const {comment} = this.props.data;
-        const {isComment, editing} = this.state;
+        const {content, isComment, editing, likes, time} = this.state;
 
         return (
             <div className={isComment ? "comment" : "reply"}>
@@ -79,7 +85,7 @@ class Comment extends Component {
                     editing ? (
                         <Fragment>
                             <div className="contentArea">
-                                <input name="content" value={this.state.content}
+                                <input name="content" value={content}
                                 onChange={this.handleChange}
                                 onKeyUp={this.handleKeyUp} />
                             </div>
@@ -92,7 +98,7 @@ class Comment extends Component {
                 }
                 <div className="commentFooterArea">
                     <div className="timeReplyArea">
-                        {/* <FromNow time={time}/> */}
+                        <FromNow time={time}/>
                         {
                             isComment ? (
                                 <Fragment>
@@ -105,7 +111,7 @@ class Comment extends Component {
                         }
                     </div>
                     <div className="updateArea">
-                        {/* <Like likes={likes} onUpdate={this.handleUpdateLikes}/> */}
+                        <Like likes={likes} onUpdate={this.handleUpdateLikes}/>
                         <span>{this.state.cmtCount}</span>
                         <input type="button" value={editing ? "적용" : "수정"}
                                 onClick={this.handleToggleEdit}></input>

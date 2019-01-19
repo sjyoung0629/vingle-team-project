@@ -39,7 +39,7 @@ class CommentMerge extends Component {
         return (
             <div className="commentWrap">
                 <Comment type="comment"
-                        data={info} key={info.id}
+                        data={info} key={info.feed_id + "-" + info.comment_id}
                         onUpdate={onUpdate}
                         onRemove={onRemove}
                         updateLikes={updateLikes}
